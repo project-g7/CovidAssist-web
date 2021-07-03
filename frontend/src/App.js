@@ -5,6 +5,7 @@ function App() {
     <div>
       <p></p>
       {/* set branch */}
+      {/*CovidAssist*/}
     </div>
     
   );
