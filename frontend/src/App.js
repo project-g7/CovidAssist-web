@@ -7,7 +7,7 @@ function App() {
       {/* set branch */}
       {/*CovidAssist*/}
       {/*nuwan*/}
-
+{/* nuvin*/}
     </div>
     
   );
