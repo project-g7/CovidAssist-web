@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const mysql = require("mysql");
 const cors = require("cors");
+const crypto = require('crypto');
+
 
 app.use(cors());
 app.use(express.json());
@@ -26,6 +28,8 @@ app.post("/create", (req, res) => {
   const status = 1;
   const user_role = req.body.UserRole;
   const user_name = req.body.UserName;
+  const hash = crypto.createHash('md5').update(password).digest('hex');
+
   db.query(
     "SELECT * FROM web_user WHERE user_name = ? AND status = 1",
     [user_name],
@@ -58,7 +62,7 @@ app.post("/create", (req, res) => {
                       gender,
                       contact_number,
                       user_name,
-                      password,
+                      hash,
                       status,
                       user_role,
                     ],
@@ -84,10 +88,11 @@ app.post("/create", (req, res) => {
 app.post("/login", (req, res) => {
   const user_name = req.body.UserName;
   const password = req.body.Password;
+  const hashpass = crypto.createHash('md5').update(password).digest('hex');
 
   db.query(
     "SELECT * FROM web_user WHERE user_name = ? AND password = ? AND status = 1",
-    [user_name, password],
+    [user_name, hashpass],
     (err, result) => {
       if (err) {
         res.send({err:err});
@@ -101,9 +106,9 @@ app.post("/login", (req, res) => {
         console.log( "Wrong username and password combination" );
       }
     }
-  );
+  ); 
 });
 
-app.listen(3001, () => {
-  console.log("your server is running port 3001");
+app.listen(3002, () => {
+  console.log("your server is running port 3002");
 });

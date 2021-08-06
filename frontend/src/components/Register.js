@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import { useState } from "react";
 import Axios from "axios";
-import "./Register.css";
+import "../styles/Register.css";
 import logo from "../images/logo.png";
 import { BiUserCircle } from "react-icons/bi";
 import { RiLockPasswordFill } from "react-icons/ri";
@@ -141,7 +141,7 @@ const Register = () => {
 
   const add = () => {
     // console.log(FirstName)
-    Axios.post("http://localhost:3001/create", formData).then((res) => {
+    Axios.post("http://localhost:3002/create", formData).then((res) => {
       setCreated(res.data.message);
       if(res.data.message=="Success"){
         window.location.href = "/"

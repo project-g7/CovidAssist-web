@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import Axios from "axios";
 import { useState } from "react";
-import "./Login.css";
+import "../styles/Login.css";
 import logo from "../images/logo.png";
 import { BiUserCircle } from "react-icons/bi";
 import { RiLockPasswordFill } from "react-icons/ri";
@@ -13,7 +13,7 @@ const Login = () => {
   const [loginError, setLoginError] = useState("");
   const [logged, setLogged] = useState("");
   const submit = (e) => {
-    Axios.post("http://localhost:3001/login", {
+    Axios.post("http://localhost:3002/login", {
       Password: Password,
       UserName: UserName,
     }).then((res) => {
@@ -25,7 +25,14 @@ const Login = () => {
         setLoginError("");
         console.log(res.data);
         setLogged("You have logged in as " + res.data[0].first_name);
-        window.location.href = "/Welcome";
+        let userRole = res.data[0].user_role;
+        if(userRole == 'admin'){
+          window.location.href = "/admin";
+        }else if(userRole == 'Vaccine Manager'){
+          window.location.href = "/vaccine";
+        }else if(userRole == 'Contact Tracing Manager'){
+          window.location.href = "/ct";
+        }
       }
     });
   };
@@ -37,7 +44,7 @@ const Login = () => {
       <h1 className="logH1">LogIn</h1>
       <div className="login_1">
         <div className="div_img">
-          <img className="logo" src={logo} />
+          <img className="logo1" src={logo} />
         </div>
 
         <div className="login_content">
@@ -84,7 +91,7 @@ const Login = () => {
                 Forgot Password?
               </Link>
               <div className="input-div3">
-                <button className="btn" value="Login" onClick={submit}>
+                <button className="btn1" value="Login" onClick={submit}>
                   Login
                 </button>
                 <Link to="/Register" className="register">
