@@ -75,6 +75,14 @@ const VaccinatedDetailsChart = () => {
                 ],
                 barThickness: 60,
               },
+              // {
+              //   label: "Sinopharm",
+              //   backgroundColor: "green",
+              // },
+              // {
+              //   label: "Sputnic V",
+              //   backgroundColor: "blue",
+              // },
             ],
           }}
           options={{
